@@ -4,7 +4,7 @@ using RechargeFunctions.Infraestructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseUrls("http://localhost:5144", "http://0.0.0.0:5144");
+//builder.WebHost.UseUrls("http://localhost:5144", "http://0.0.0.0:5144");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -31,5 +31,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 app.MapControllers();
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Urls.Add($"http://0.0.0.0:{port}");
 
 app.Run();
