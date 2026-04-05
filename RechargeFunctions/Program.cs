@@ -20,12 +20,12 @@ builder.Services.AddScoped<TarjetaService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+
     app.UseSwagger();
     app.UseSwaggerUI();
     app.MapOpenApi();
-}
+
 
 // app.UseHttpsRedirection();
 
@@ -34,5 +34,7 @@ app.MapControllers();
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 app.Urls.Add($"http://0.0.0.0:{port}");
+
+app.MapGet("/ping", () => Results.Ok("pong"));
 
 app.Run();
