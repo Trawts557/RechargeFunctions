@@ -1,0 +1,83 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RechargeFunctions.Mobile.Views.GastoTarjetaPage"
+             Title="Gasto y Ganancias por Tarjeta">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Frame Padding="15">
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="Filtrar por período"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+
+                    <HorizontalStackLayout Spacing="10">
+
+                        <VerticalStackLayout HorizontalOptions="FillAndExpand">
+                            <Label Text="Mes" />
+                            <Picker x:Name="MesPicker"
+                                    Title="Seleccione mes"
+                                    SelectedIndexChanged="OnFiltroChanged" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout HorizontalOptions="FillAndExpand">
+                            <Label Text="Año" />
+                            <Picker x:Name="AnioPicker"
+                                    Title="Seleccione año"
+                                    SelectedIndexChanged="OnFiltroChanged" />
+                        </VerticalStackLayout>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="15">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Resumen General"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+
+                    <Label x:Name="TotalGastadoGeneralLabel"
+                           Text="Total gastado: 0.00" />
+
+                    <Label x:Name="TotalGananciasGeneralLabel"
+                           Text="Ganancias: 0.00" />
+
+                    <Label x:Name="TotalRecargasGeneralLabel"
+                           Text="Recargas: 0" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <CollectionView x:Name="ResumenTarjetasCollectionView"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="12" Margin="0,6">
+                            <VerticalStackLayout Spacing="4">
+
+                                <Label Text="{Binding TarjetaNombre}"
+                                       FontAttributes="Bold"
+                                       FontSize="16" />
+
+                                <Label Text="{Binding TotalGastado, StringFormat='Total gastado: {0:F2}'}" />
+
+                                <Label Text="{Binding Ganancias, StringFormat='Ganancias: {0:F2}'}" />
+
+                                <Label Text="{Binding CantidadRecargas, StringFormat='Cantidad de recargas: {0}'}" />
+
+                                <Label Text="{Binding CantidadPagadas, StringFormat='Pagadas: {0}'}" />
+
+                                <Label Text="{Binding CantidadPendientes, StringFormat='Pendientes: {0}'}" />
+
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

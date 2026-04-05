@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.0">
+	<application android:usesCleartextTraffic="true" android:allowBackup="true" android:icon="@mipmap/appicon" android:supportsRtl="true" android:label="Recharge Functions"> </application>
+	<uses-permission android:name="android.permission.INTERNET" />
+</manifest>

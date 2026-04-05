@@ -1,0 +1,34 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RechargeFunctions.Mobile.Views.EditarRecargaPage"
+             Title="Editar Recarga">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label Text="Cliente" FontAttributes="Bold" />
+            <Picker x:Name="ClientePicker"
+                    Title="Seleccione un cliente"
+                    ItemDisplayBinding="{Binding DisplayText}" />
+
+            <Label Text="Tarjeta" FontAttributes="Bold" />
+            <Picker x:Name="TarjetaPicker"
+                    Title="Seleccione una tarjeta"
+                    ItemDisplayBinding="{Binding DisplayText}" />
+
+            <Label Text="Monto" FontAttributes="Bold" />
+            <Entry x:Name="MontoEntry"
+                   Placeholder="Ingrese el monto"
+                   Keyboard="Numeric" />
+
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="¿Está pagada?" VerticalOptions="Center" />
+                <Switch x:Name="EstaPagadaSwitch" />
+            </HorizontalStackLayout>
+
+            <Button Text="Guardar Cambios"
+                    Clicked="OnGuardarCambiosClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>  

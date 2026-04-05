@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RechargeFunctions.Mobile.MainPage"
+             Title="Ventana Principal">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="18">
+
+            <Label Text="Recharge Functions"
+                   HorizontalOptions="Center"
+                   FontSize="28"
+                   Margin="0,10,0,20" />
+
+            <Button Text="Realizar recarga"
+                    HeightRequest="60"
+                    Clicked="OnRealizarRecargaClicked" 
+                    BackgroundColor = "LightGreen"/>
+
+            <Button Text="Agregar tarjeta"
+                    HeightRequest="60"
+                    Clicked="OnAgregarTarjetaClicked" 
+                    BackgroundColor="Pink"/>
+
+            <Button Text="Agregar cliente"
+                    HeightRequest="60"
+                    Clicked="OnAgregarClienteClicked" 
+                    BackgroundColor="Pink"/>
+
+            <Button Text="Pagos pendientes"
+                    HeightRequest="60"
+                    Clicked="OnPagosPendientesClicked" 
+                    BackgroundColor="LightBlue"/>
+            
+            <Button Text="Gasto generado por uso de tarjeta"
+                    HeightRequest="60"
+                    Clicked="OnGastoTarjetaClicked" 
+                    BackgroundColor="LightBlue"/>
+            
+            <Button Text="Historial de recargas realizadas"
+                    HeightRequest="60"
+                    Clicked="OnHistorialRecargasClicked" 
+                    BackgroundColor="Orange"/>
+
+            <Button Text="Lista de clientes"
+                    HeightRequest="60"
+                    Clicked="OnListaClientesClicked" 
+                    BackgroundColor="Orange"/>
+
+            <Button Text="Lista de tarjetas"
+                    HeightRequest="60"
+                    Clicked="OnListaTarjetasClicked" 
+                    BackgroundColor="Orange"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+    
+    

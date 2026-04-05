@@ -1,0 +1,31 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RechargeFunctions.Mobile.Views.EditarTarjetaPage"
+             Title="Editar Tarjeta">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label Text="Nombre" FontAttributes="Bold" />
+            <Entry x:Name="NombreEntry"
+                   Placeholder="Ingrese el nombre de la tarjeta" />
+
+            <Label Text="Últimos dígitos" FontAttributes="Bold" />
+            <Entry x:Name="UltimosDigitosEntry"
+                   Placeholder="1234"
+                   Keyboard="Numeric"
+                   MaxLength="4" />
+
+            <Label x:Name="EstadoLabel"
+                   Text="Estado: -" />
+
+            <Button Text="Guardar Cambios"
+                    Clicked="OnGuardarCambiosClicked" />
+
+            <Button x:Name="CambiarEstadoButton"
+                    Text="Cambiar Estado"
+                    Clicked="OnCambiarEstadoClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,44 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RechargeFunctions.Mobile.Views.CrearRecargaPage"
+             Title="Crear Recarga">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label Text="Buscar cliente" FontAttributes="Bold" />
+            <SearchBar x:Name="ClienteSearchBar"
+                       Placeholder="Escriba nombre, apodo, NIC o teléfono"
+                       TextChanged="OnClienteSearchTextChanged" />
+
+            <Label Text="Cliente" FontAttributes="Bold" />
+            <Picker x:Name="ClientePicker"
+                    Title="Seleccione un cliente"
+                    ItemDisplayBinding="{Binding DisplayText}"
+                    SelectedIndexChanged="OnClientePickerSelectedIndexChanged" />
+
+            <Label Text="Cliente seleccionado" FontAttributes="Bold" />
+            <Label x:Name="ClienteSeleccionadoLabel"
+                   Text="Ninguno" />
+
+            <Label Text="Tarjeta" FontAttributes="Bold" />
+            <Picker x:Name="TarjetaPicker"
+                    Title="Seleccione una tarjeta"
+                    ItemDisplayBinding="{Binding DisplayText}" />
+
+            <Label Text="Monto de recarga" FontAttributes="Bold" />
+            <Entry x:Name="MontoEntry"
+                   Placeholder="Ingrese el monto"
+                   Keyboard="Numeric" />
+
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="¿Está pagada?" VerticalOptions="Center" />
+                <Switch x:Name="EstaPagadaSwitch" />
+            </HorizontalStackLayout>
+
+            <Button Text="Guardar Recarga"
+                    Clicked="OnGuardarRecargaClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

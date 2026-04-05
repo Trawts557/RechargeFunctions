@@ -1,0 +1,24 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RechargeFunctions.Mobile.Views.AgregarTarjetaPage"
+             Title="Agregar Tarjeta">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label Text="Nombre de la tarjeta" FontAttributes="Bold" />
+            <Entry x:Name="NombreEntry"
+                   Placeholder="Ejemplo: BHD principal" />
+
+            <Label Text="Últimos 3 dígitos" FontAttributes="Bold" />
+            <Entry x:Name="UltimosDigitosEntry"
+                   Placeholder="123"
+                   Keyboard="Numeric"
+                   MaxLength="12" />
+
+            <Button Text="Guardar Tarjeta"
+                    Clicked="OnGuardarTarjetaClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

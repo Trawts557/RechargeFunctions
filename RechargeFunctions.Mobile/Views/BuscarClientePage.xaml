@@ -1,0 +1,32 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RechargeFunctions.Mobile.Views.BuscarClientePage"
+             Title="Clientes">
+
+    <VerticalStackLayout Padding="20" Spacing="12">
+
+        <SearchBar x:Name="ClienteSearchBar"
+                   Placeholder="Buscar por nombre, apodo, NIC o teléfono"
+                   TextChanged="OnSearchTextChanged" />
+
+        <CollectionView x:Name="ClientesCollectionView"
+                        SelectionMode="Single"
+                        SelectionChanged="OnClienteSelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="0,5">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding NombreCompleto}"
+                                   FontAttributes="Bold"
+                                   FontSize="16" />
+                            <Label Text="{Binding Apodo}" />
+                            <Label Text="{Binding Nic}" />
+                            <Label Text="{Binding NumeroTelefono}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>
