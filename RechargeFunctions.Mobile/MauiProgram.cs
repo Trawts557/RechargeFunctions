@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using RechargeFunctions.Mobile.Services;
 
 namespace RechargeFunctions.Mobile
@@ -8,6 +10,7 @@ namespace RechargeFunctions.Mobile
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -16,12 +19,40 @@ namespace RechargeFunctions.Mobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddTransient<ClienteApiService>();
-            builder.Services.AddTransient<RecargaApiService>();
-            builder.Services.AddTransient<TarjetaApiService>();
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false)
+                .Build();
+
+            builder.Configuration.AddConfiguration(config);
+
+            builder.Services.AddHttpClient<ClienteApiService>((sp, client) =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var baseUrl = configuration["ApiSettings:BaseUrl"]
+                    ?? throw new InvalidOperationException("ApiSettings:BaseUrl no está configurado.");
+
+                client.BaseAddress = new Uri(baseUrl);
+            });
+
+            builder.Services.AddHttpClient<RecargaApiService>((sp, client) =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var baseUrl = configuration["ApiSettings:BaseUrl"]
+                    ?? throw new InvalidOperationException("ApiSettings:BaseUrl no está configurado.");
+
+                client.BaseAddress = new Uri(baseUrl);
+            });
+
+            builder.Services.AddHttpClient<TarjetaApiService>((sp, client) =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var baseUrl = configuration["ApiSettings:BaseUrl"]
+                    ?? throw new InvalidOperationException("ApiSettings:BaseUrl no está configurado.");
+
+                client.BaseAddress = new Uri(baseUrl);
+            });
 
             builder.Services.AddTransient<MainPage>();
-
 
 #if DEBUG
             builder.Logging.AddDebug();

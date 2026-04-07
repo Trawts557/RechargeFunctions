@@ -12,7 +12,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure();
+        }));
 
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<RecargaService>();
@@ -25,6 +30,8 @@ var app = builder.Build();
     app.UseSwagger();
     app.UseSwaggerUI();
     app.MapOpenApi();
+
+
 
 
 // app.UseHttpsRedirection();

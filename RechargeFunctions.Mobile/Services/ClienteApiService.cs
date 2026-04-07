@@ -1,4 +1,5 @@
-﻿using RechargeFunctions.Mobile.Models;
+﻿using Microsoft.Extensions.Configuration;
+using RechargeFunctions.Mobile.Models;
 using RechargeFunctions.Mobile.Models.Cliente;
 using System.Net.Http.Json;
 
@@ -8,18 +9,9 @@ namespace RechargeFunctions.Mobile.Services
     {
         private readonly HttpClient _http;
 
-        public ClienteApiService()
+        public ClienteApiService(HttpClient http)
         {
-#if ANDROID
-            var baseUrl = "http://10.0.2.2:5144/api/";
-#else
-            var baseUrl = "http://localhost:5144/api/";
-#endif
-
-            _http = new HttpClient
-            {
-                BaseAddress = new Uri(baseUrl)
-            };
+            _http = http;
         }
 
         public async Task<List<ClienteDto>> BuscarClientesAsync(string term)
