@@ -39,7 +39,7 @@ namespace RechargeFunctions.Mobile.Views
                 {
                     Nombre = nombre,
                     Apellido = apellido,
-                    Apodo = apodo,
+                    Apodo = apodo, 
                     Nic = nic,
                     NumeroTelefono = numeroTelefono
                 };

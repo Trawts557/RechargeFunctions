@@ -1,4 +1,3 @@
-
 using RechargeFunctions.Mobile.Models.Cliente;
 using RechargeFunctions.Mobile.Models.Recarga;
 using RechargeFunctions.Mobile.Models.Tarjeta;
@@ -17,8 +16,10 @@ namespace RechargeFunctions.Mobile.Views
         private List<TarjetaDto> _tarjetas = new();
         private List<ClienteDto> _clientes = new();
 
-        public HistorialRecargasPage(RecargaApiService recargaApiService, 
-            TarjetaApiService tarjetaApiService, ClienteApiService clienteApiService)
+        public HistorialRecargasPage(
+            RecargaApiService recargaApiService,
+            TarjetaApiService tarjetaApiService,
+            ClienteApiService clienteApiService)
         {
             InitializeComponent();
             _recargaApiService = recargaApiService;
@@ -29,7 +30,6 @@ namespace RechargeFunctions.Mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
             await CargarRecargasAsync();
         }
 
@@ -44,32 +44,31 @@ namespace RechargeFunctions.Mobile.Views
                 var clientesDict = _clientes.ToDictionary(c => c.Id);
                 var tarjetasDict = _tarjetas.ToDictionary(t => t.Id);
 
-                foreach (var r in recargas)
+                foreach (var recarga in recargas)
                 {
-                    if (clientesDict.TryGetValue(r.ClienteId, out var cliente))
+                    if (clientesDict.TryGetValue(recarga.ClienteId, out var cliente))
                     {
-                        r.ClienteNombre = $"{cliente.Nombre} {cliente.Apellido}";
+                        recarga.ClienteNombre = $"{cliente.Nombre} {cliente.Apellido}";
                     }
                     else
                     {
-                        r.ClienteNombre = $"Cliente #{r.ClienteId}";
+                        recarga.ClienteNombre = $"Cliente #{recarga.ClienteId}";
                     }
 
-                    if (tarjetasDict.TryGetValue(r.TarjetaId, out var tarjeta))
+                    if (tarjetasDict.TryGetValue(recarga.TarjetaId, out var tarjeta))
                     {
-                        r.TarjetaNombre = tarjeta.Nombre;
+                        recarga.TarjetaNombre = tarjeta.Nombre;
                     }
                     else
                     {
-                        r.TarjetaNombre = $"Tarjeta #{r.TarjetaId}";
+                        recarga.TarjetaNombre = $"Tarjeta #{recarga.TarjetaId}";
                     }
                 }
 
-                _recargas = recargas
-                    .OrderByDescending(r => r.FechaRecarga)
-                    .ToList();
-
+                _recargas = OrdenarRecargasPorFechaDesc(recargas);
                 _recargasFiltradas = _recargas.ToList();
+
+                RecargasCollectionView.ItemsSource = null;
                 RecargasCollectionView.ItemsSource = _recargasFiltradas;
             }
             catch (Exception ex)
@@ -78,9 +77,16 @@ namespace RechargeFunctions.Mobile.Views
             }
         }
 
+        private static List<RecargaDto> OrdenarRecargasPorFechaDesc(IEnumerable<RecargaDto> recargas)
+        {
+            return recargas
+                .OrderByDescending(r => r.FechaRecarga)
+                .ToList();
+        }
+
         private void OnBuscarRecargaTextChanged(object sender, TextChangedEventArgs e)
         {
-            var texto = e.NewTextValue?.Trim().ToLower() ?? string.Empty;
+            var texto = e.NewTextValue?.Trim().ToLowerInvariant() ?? string.Empty;
 
             if (string.IsNullOrWhiteSpace(texto))
             {
@@ -90,26 +96,35 @@ namespace RechargeFunctions.Mobile.Views
             {
                 _recargasFiltradas = _recargas
                     .Where(r =>
-                        (r.ClienteNombre?.ToLower().Contains(texto) ?? false) ||
-                        (r.TarjetaNombre?.ToLower().Contains(texto) ?? false))
+                        (r.ClienteNombre?.ToLowerInvariant().Contains(texto) ?? false) ||
+                        (r.TarjetaNombre?.ToLowerInvariant().Contains(texto) ?? false))
+                    .OrderByDescending(r => r.FechaRecarga)
                     .ToList();
             }
 
+            RecargasCollectionView.ItemsSource = null;
             RecargasCollectionView.ItemsSource = _recargasFiltradas;
         }
 
         private async void OnRecargaSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var recargaSeleccionada = e.CurrentSelection.FirstOrDefault() as RecargaDto;
-
-            if (recargaSeleccionada == null)
+            try
             {
-                return;
+                var recargaSeleccionada = e.CurrentSelection.FirstOrDefault() as RecargaDto;
+
+                if (recargaSeleccionada == null)
+                {
+                    return;
+                }
+
+                ((CollectionView)sender).SelectedItem = null;
+
+                await Shell.Current.GoToAsync($"{nameof(EditarRecargaPage)}?id={recargaSeleccionada.Id}");
             }
-
-            ((CollectionView)sender).SelectedItem = null;
-
-            await Shell.Current.GoToAsync($"{nameof(EditarRecargaPage)}?id={recargaSeleccionada.Id}");
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
         }
     }
 }

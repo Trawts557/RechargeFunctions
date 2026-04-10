@@ -1,34 +1,55 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RechargeFunctions.Mobile.Views.PagosPendientesPage"
-             Title="Deudas Pendientes">
+             Title="Deudas Pendientes"
+             BackgroundColor="{AppThemeBinding Light=#F7F8FA, Dark=#111315}">
 
-    <Grid Padding="20">
-        <CollectionView x:Name="RecargasCollectionView"
-                        SelectionMode="None">
+    <Grid Padding="20"
+          RowDefinitions="*">
+
+        <CollectionView Grid.Row="0"
+                        x:Name="RecargasCollectionView"
+                        SelectionMode="None"
+                        EmptyView="No hay pagos pendientes.">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Padding="12" Margin="0,6">
+                    <Border Padding="12"
+                            StrokeThickness="1"
+                            Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#2D333B}"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1A1D21}"
+                            StrokeShape="RoundRectangle 16">
+
                         <VerticalStackLayout Spacing="6">
 
                             <Label Text="{Binding ClienteNombre}"
                                    FontAttributes="Bold"
-                                   FontSize="16" />
+                                   FontSize="16"
+                                   TextColor="{AppThemeBinding Light=#111827, Dark=White}" />
 
-                            <Label Text="{Binding TarjetaNombre}" />
+                            <Label Text="{Binding TarjetaNombre}"
+                                   TextColor="{AppThemeBinding Light=#4B5563, Dark=#C7CDD4}" />
 
-                            <Label Text="{Binding MontoRecarga, StringFormat='Monto: {0:F2}'}" />
+                            <Label Text="{Binding MontoRecarga, StringFormat='Monto: {0:F2}'}"
+                                   TextColor="{AppThemeBinding Light=#4B5563, Dark=#C7CDD4}" />
 
-                            <Label Text="{Binding FechaRecarga, StringFormat='Fecha: {0:dd/MM/yyyy HH:mm}'}" />
+                            <Label Text="{Binding FechaRecarga, StringFormat='Fecha: {0:dd/MM/yyyy HH:mm}'}"
+                                   TextColor="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" />
 
-                            <Label Text="Pendiente" TextColor="Red" />
+                            <Label Text="Pendiente"
+                                   FontAttributes="Bold"
+                                   TextColor="Red" />
 
                             <Button Text="Marcar como pagada"
                                     Clicked="OnMarcarPagadaClicked"
                                     CommandParameter="{Binding Id}" />
-
                         </VerticalStackLayout>
-                    </Frame>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

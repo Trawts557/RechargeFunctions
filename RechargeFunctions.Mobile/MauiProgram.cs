@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿
 using Microsoft.Extensions.Logging;
 using RechargeFunctions.Mobile.Services;
 
@@ -19,37 +18,19 @@ namespace RechargeFunctions.Mobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false)
-                .Build();
-
-            builder.Configuration.AddConfiguration(config);
-
-            builder.Services.AddHttpClient<ClienteApiService>((sp, client) =>
+            builder.Services.AddHttpClient<ClienteApiService>(client =>
             {
-                var configuration = sp.GetRequiredService<IConfiguration>();
-                var baseUrl = configuration["ApiSettings:BaseUrl"]
-                    ?? throw new InvalidOperationException("ApiSettings:BaseUrl no está configurado.");
-
-                client.BaseAddress = new Uri(baseUrl);
+                client.BaseAddress = new Uri("https://recharge-api-3off.onrender.com/api/");
             });
 
-            builder.Services.AddHttpClient<RecargaApiService>((sp, client) =>
+            builder.Services.AddHttpClient<RecargaApiService>(client =>
             {
-                var configuration = sp.GetRequiredService<IConfiguration>();
-                var baseUrl = configuration["ApiSettings:BaseUrl"]
-                    ?? throw new InvalidOperationException("ApiSettings:BaseUrl no está configurado.");
-
-                client.BaseAddress = new Uri(baseUrl);
+                client.BaseAddress = new Uri("https://recharge-api-3off.onrender.com/api/");
             });
 
-            builder.Services.AddHttpClient<TarjetaApiService>((sp, client) =>
+            builder.Services.AddHttpClient<TarjetaApiService>(client =>
             {
-                var configuration = sp.GetRequiredService<IConfiguration>();
-                var baseUrl = configuration["ApiSettings:BaseUrl"]
-                    ?? throw new InvalidOperationException("ApiSettings:BaseUrl no está configurado.");
-
-                client.BaseAddress = new Uri(baseUrl);
+                client.BaseAddress = new Uri("https://recharge-api-3off.onrender.com/api/");
             });
 
             builder.Services.AddTransient<MainPage>();

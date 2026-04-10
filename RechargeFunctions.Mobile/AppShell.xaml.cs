@@ -20,8 +20,6 @@ namespace RechargeFunctions.Mobile
             Routing.RegisterRoute(nameof(TarjetasPage), typeof(TarjetasPage));
             Routing.RegisterRoute(nameof(EditarTarjetaPage), typeof(EditarTarjetaPage));
 
-
-
         }
     }
 }

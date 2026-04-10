@@ -1,4 +1,4 @@
-using RechargeFunctions.Mobile.Models;
+
 using RechargeFunctions.Mobile.Models.Recarga;
 using RechargeFunctions.Mobile.Models.Tarjeta;
 using RechargeFunctions.Mobile.Services;
@@ -54,37 +54,35 @@ namespace RechargeFunctions.Mobile.Views
         private void ConfigurarFiltros()
         {
             var meses = new List<string>
-            {
-                "Enero",
-                "Febrero",
-                "Marzo",
-                "Abril",
-                "Mayo",
-                "Junio",
-                "Julio",
-                "Agosto",
-                "Septiembre",
-                "Octubre",
-                "Noviembre",
-                "Diciembre"
-            };
+    {
+        "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+        "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
+    };
 
             MesPicker.ItemsSource = meses;
             MesPicker.SelectedIndex = DateTime.Now.Month - 1;
 
-            var anios = _recargas
+            var anioActual = DateTime.Now.Year;
+
+            var aniosData = _recargas
                 .Select(r => r.FechaRecarga.Year)
+                .Distinct();
+
+            var aniosFuturos = Enumerable.Range(anioActual, 3);
+
+            var anios = aniosData
+                .Union(aniosFuturos)
                 .Distinct()
                 .OrderByDescending(y => y)
                 .ToList();
 
-            if (anios.Count == 0)
+            if (!anios.Any())
             {
-                anios.Add(DateTime.Now.Year);
+                anios.Add(anioActual);
             }
 
             AnioPicker.ItemsSource = anios;
-            AnioPicker.SelectedItem = DateTime.Now.Year;
+            AnioPicker.SelectedItem = anioActual;
         }
 
         private void OnFiltroChanged(object sender, EventArgs e)

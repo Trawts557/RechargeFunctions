@@ -1,5 +1,4 @@
 ﻿
-
 using Microsoft.EntityFrameworkCore;
 using RechargeFunctions.Domain.Entities;
 using RechargeFunctions.Domain.Enums.Recarga;

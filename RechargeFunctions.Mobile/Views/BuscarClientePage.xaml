@@ -1,32 +1,56 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RechargeFunctions.Mobile.Views.BuscarClientePage"
-             Title="Clientes">
+             Title="Clientes"
+             BackgroundColor="{AppThemeBinding Light=#F7F8FA, Dark=#111315}">
 
-    <VerticalStackLayout Padding="20" Spacing="12">
+    <Grid Padding="20"
+          RowDefinitions="Auto,*"
+          RowSpacing="12">
 
-        <SearchBar x:Name="ClienteSearchBar"
+        <SearchBar Grid.Row="0"
+                   x:Name="ClienteSearchBar"
                    Placeholder="Buscar por nombre, apodo, NIC o teléfono"
                    TextChanged="OnSearchTextChanged" />
 
-        <CollectionView x:Name="ClientesCollectionView"
+        <CollectionView Grid.Row="1"
+                        x:Name="ClientesCollectionView"
                         SelectionMode="Single"
-                        SelectionChanged="OnClienteSelectionChanged">
+                        SelectionChanged="OnClienteSelectionChanged"
+                        EmptyView="No hay clientes registrados."
+                        VerticalScrollBarVisibility="Always">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Padding="10" Margin="0,5">
+                    <Border Padding="12"
+                            StrokeThickness="1"
+                            Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#2D333B}"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1A1D21}"
+                            StrokeShape="RoundRectangle 16">
+
                         <VerticalStackLayout Spacing="4">
                             <Label Text="{Binding NombreCompleto}"
                                    FontAttributes="Bold"
-                                   FontSize="16" />
-                            <Label Text="{Binding Apodo}" />
-                            <Label Text="{Binding Nic}" />
-                            <Label Text="{Binding NumeroTelefono}" />
+                                   FontSize="16"
+                                   TextColor="{AppThemeBinding Light=#111827, Dark=White}" />
+
+                            <Label Text="{Binding Apodo}"
+                                   TextColor="{AppThemeBinding Light=#4B5563, Dark=#C7CDD4}" />
+
+                            <Label Text="{Binding Nic}"
+                                   TextColor="{AppThemeBinding Light=#4B5563, Dark=#C7CDD4}" />
+
+                            <Label Text="{Binding NumeroTelefono}"
+                                   TextColor="{AppThemeBinding Light=#4B5563, Dark=#C7CDD4}" />
                         </VerticalStackLayout>
-                    </Frame>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

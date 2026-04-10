@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using RechargeFunctions.Mobile.Models;
+﻿
 using RechargeFunctions.Mobile.Models.Tarjeta;
 using System.Net.Http.Json;
 

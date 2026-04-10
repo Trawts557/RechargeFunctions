@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using RechargeFunctions.Mobile.Models;
+﻿
 using RechargeFunctions.Mobile.Models.Cliente;
 using System.Net.Http.Json;
 
